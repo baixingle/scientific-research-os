@@ -17,11 +17,36 @@ Do not require the user to:
 
 Those mechanisms exist to help the system reason and operate reliably, not to create setup work for the researcher.
 
+## Transparent project state
+
+Zero-config does not mean invisible operation.
+
+When a persistent project workspace is available and the work has enough continuity to justify tracking, the AI should maintain a concise `RESEARCH_STATE.md` automatically using `templates/research_state.md`.
+
+The file should give the researcher a readable view of the current question, evidence, interpretation, competing explanations, open uncertainties, claim boundary, active work, next decision, and links to important project artifacts.
+
+The AI should tell the researcher when it creates or materially updates this state file, a mission, a review, or an important decision record.
+
+The researcher should not be required to edit these files manually. They exist so the work is inspectable, resumable, auditable, and easier to hand off.
+
+A lightweight persistent project may look like:
+
+```text
+project/
+├── RESEARCH_STATE.md
+├── missions/
+├── reviews/
+├── decisions/
+└── ...existing project files...
+```
+
+This is a suggested pattern, not a required directory schema. Preserve existing project organization when possible.
+
 ## Adaptive use
 
 Use only as much structure as the problem needs.
 
-For a simple scientific question, reason directly. For an ambiguous result, make evidence and alternatives explicit. For a costly or multi-step execution task, generate a mission and acceptance criteria. For important conclusions, use independent review. For long-lived projects, maintain decision memory.
+For a simple scientific question, reason directly. For an ambiguous result, make evidence and alternatives explicit. For a costly or multi-step execution task, generate a mission and acceptance criteria. For important conclusions, use independent review. For long-lived projects, maintain state, decisions, and research memory.
 
 The user does not need to select these modes in advance.
 
@@ -45,10 +70,10 @@ Defaults should make the system useful before any of these options are specified
 
 ## Team adoption
 
-Teams may choose to persist missions, reviews, decision logs, provenance, or shared project memory in version-controlled storage. This is an optional scaling layer, not a prerequisite for individual use.
+Teams may choose to persist missions, reviews, decision logs, provenance, or shared project memory in version-controlled storage. `RESEARCH_STATE.md` can serve as the shared entry point that tells collaborators where the project currently stands before they inspect deeper artifacts.
 
 ## Design philosophy
 
-> Complexity belongs inside the framework. The researcher-facing interaction should remain natural and lightweight.
+> **Automate the complexity, preserve the scientific transparency.**
 
 Scientific Research OS should evolve through demonstrated research value and practical usage, not through feature or configuration accumulation.
