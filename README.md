@@ -10,7 +10,7 @@ Scientific Research OS helps researchers decide **what is worth doing next**, tu
 
 It is tool-independent and designed for experimental / wet-lab research, computational science and simulation, theory, machine learning and data science, literature-driven work, and hybrid projects.
 
-Current stable release: **[v1.0.0](https://github.com/baixingle/scientific-research-os/releases/tag/v1.0.0)**.
+Current stable release: **[v1.0.1](https://github.com/baixingle/scientific-research-os/releases/tag/v1.0.1)**.
 
 ## Start in one sentence
 
@@ -272,11 +272,9 @@ A [`CITATION.cff`](CITATION.cff) file is included so GitHub and compatible schol
 
 ## Status
 
-**v1.0.0** defines the stable scientific core: evidence discipline, adaptive strategy/execution separation, zero-config researcher entry, bounded missions when useful, independent review, an inspectable research-state layer, and durable provenance for important scientific history.
+**v1.0.1** is the current stable specification. It preserves the v1.0 scientific core while making the reasoning-to-tool-execution path explicit: evidence discipline, zero-config researcher entry, informative next-step selection, bounded execution with available authorized tools when supported, independent review, an inspectable research-state layer, and durable provenance for important scientific history.
 
-The current `main` branch also clarifies the tool-connected execution path: when the host environment provides suitable authorized tools, a bounded mission may be executed directly before review and provenance updates.
-
-Release: **[Scientific Research OS v1.0.0](https://github.com/baixingle/scientific-research-os/releases/tag/v1.0.0)**
+Release: **[Scientific Research OS v1.0.1](https://github.com/baixingle/scientific-research-os/releases/tag/v1.0.1)**
 
 > **Automate the complexity, preserve the scientific transparency and history.**
 
