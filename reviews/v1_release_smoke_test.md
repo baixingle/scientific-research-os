@@ -23,7 +23,7 @@ A new researcher begins with an ordinary scientific message such as:
 
 **Repository check:**
 
-`SKILL.md`, `README.md`, and `QUICK_START.md` all specify a zero-config, natural-language-first entry model.
+`SKILL.md`, `README.md`, and `QUICK_START.md` specify a zero-config, natural-language-first entry model.
 
 **Result:** PASS
 
@@ -49,16 +49,16 @@ A conversation becomes a persistent research project.
 
 **Scenario:**
 
-An important analysis, computation, experiment, or dataset contributes to a scientific decision.
+An important analysis, computation, experiment, derivation, or dataset contributes to a scientific decision.
 
 **Expected behavior:**
 
-- important inputs, method/version information, parameters, outputs, and linked scientific artifacts can be traced later;
+- important inputs or materials, method/version information, critical conditions, outputs, and linked scientific artifacts can be traced later;
 - provenance is proportional to scientific value and reproducibility risk rather than recorded for every trivial edit.
 
 **Repository check:**
 
-`templates/provenance_manifest.md` provides append-oriented provenance entries with stable IDs, inputs, execution metadata, outputs, linked missions/reviews/decisions, status, and reproduction notes.
+`templates/provenance_manifest.md` provides append-oriented provenance entries with stable IDs, inputs/materials, execution metadata, outputs, linked missions/reviews/decisions, status, and reproduction notes.
 
 **Result:** PASS
 
@@ -81,7 +81,34 @@ The provenance template explicitly requires append-oriented history and `superse
 
 **Result:** PASS
 
-## Test 5 — Release hygiene and portability
+## Test 5 — Wet-lab / experimental research does not inherit computational assumptions
+
+**Scenario:**
+
+A wet-lab researcher begins with:
+
+> A treatment group shows a reproducible increase in phenotype X. I suspect pathway Y is involved. What should I test next?
+
+**Expected behavior:**
+
+- system frames the uncertainty and plausible competing explanations before recommending a large experiment series;
+- proposed experiments include scientifically relevant controls and, when appropriate, replication, randomization, blinding, batch effects, or alternative explanations;
+- a bounded experimental mission can refer naturally to samples/specimens, reagents/materials, protocol version, critical timing or environmental conditions, instrument settings, and protocol deviations;
+- provenance can preserve sample-to-measurement mapping, reagent lot/batch, protocol/instrument metadata, and raw-data location when those details matter;
+- the system does **not** require irrelevant computational metadata such as code commits, random seeds, or software environments unless computation is actually part of the work;
+- the Task Executor may be a researcher, technician, collaborator, instrument, laboratory automation system, or human-AI combination rather than an AI model.
+
+**Repository check:**
+
+- `SKILL.md` explicitly defines domain-adaptive reproducibility and experimental/wet-lab support;
+- `templates/mission.md` uses `Inputs and Materials` and provides wet-lab-specific reproducibility examples only when relevant;
+- `references/reproducibility.md` separates experimental, computational/ML, and theoretical metadata;
+- `agents/task_executor.md` defines the executor as a general bounded execution entity rather than an AI-only model;
+- `references/model_selection.md` now applies only when a role or subtask is actually assigned to an AI model.
+
+**Result:** PASS
+
+## Test 6 — Release hygiene and portability
 
 **Checks performed:**
 
@@ -89,15 +116,31 @@ The provenance template explicitly requires append-oriented history and `superse
 - searched for common credential terms such as `password`, `secret`, `api_key`, `token`, and `sk-`;
 - searched for hard-coded product/model names used in prior development discussions.
 
-No matching repository results were returned by these sweeps.
+No matching repository results were returned by these sweeps at the time of the release review.
 
 The reusable example remains synthetic and domain-neutral.
 
 **Result:** PASS
 
+## Installation Entry Check
+
+A new user should be able to determine how to make the skill available without learning the internal architecture first.
+
+**Repository check:**
+
+`docs/installation_and_usage.md` now documents three lightweight entry paths:
+
+1. native skill/repository import when supported;
+2. repository-aware agents that can read `SKILL.md` and referenced files;
+3. environments without skill installation, where `SKILL.md` can be supplied as persistent project instructions/context.
+
+The installation guidance deliberately avoids hard-coding one product-specific procedure that may become stale.
+
+**Result:** PASS
+
 ## End-to-End Usability Check
 
-The updated `examples/generic_research_project.md` now demonstrates the intended first-use flow:
+The updated `examples/generic_research_project.md` demonstrates the intended first-use flow:
 
 ```text
 ordinary scientific question
@@ -115,7 +158,7 @@ The example requires no framework-specific setup from the researcher.
 
 ## Known Limitation of This Smoke Test
 
-This review does not prove that every model or agent implementation will follow the skill perfectly at runtime. A future behavioral evaluation suite could compare different models, tool environments, or prompting contexts if real usage shows that such testing is valuable.
+This review does not prove that every model or agent implementation will follow the skill perfectly at runtime. A future behavioral evaluation suite could compare different models, research domains, tool environments, or prompting contexts if real usage shows that such testing is valuable.
 
 That limitation is not considered a v1.0 release blocker because the current release is a tool-independent operating specification rather than a packaged orchestration runtime.
 
