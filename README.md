@@ -1,8 +1,16 @@
 # Scientific Research OS
 
-**Scientific Research OS** is a tool-independent framework for making human-AI scientific collaboration more rigorous **without making it harder to use**.
+[![Release](https://img.shields.io/github/v/release/baixingle/scientific-research-os)](https://github.com/baixingle/scientific-research-os/releases/latest)
+[![License](https://img.shields.io/github/license/baixingle/scientific-research-os)](LICENSE)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-000000)](SKILL.md)
 
-Current stable specification: **v1.0.0**.
+**A zero-config, human-guided Agent Skill for rigorous, traceable, and reproducible scientific research.**
+
+Scientific Research OS helps researchers decide **what is worth doing next**, keep **claim strength proportional to evidence**, delegate bounded work reliably, and preserve the **scientific history needed to understand and reproduce important results later**.
+
+It is tool-independent and designed for experimental / wet-lab research, computational science and simulation, theory, machine learning and data science, literature-driven work, and hybrid projects.
+
+Current stable release: **[v1.0.0](https://github.com/baixingle/scientific-research-os/releases/tag/v1.0.0)**.
 
 ## Start in one sentence
 
@@ -16,142 +24,93 @@ or:
 
 > Here are the latest results. What do they actually support, what remains uncertain, and what is the most informative next step?
 
-The framework should infer the minimum structure needed for the problem. Researchers should not have to choose agent roles, copy templates, select workflow modes, or configure model routing just to begin.
+The framework infers the minimum useful structure. Researchers should not have to choose agent roles, copy templates, select workflow modes, or configure model routing just to begin.
 
-See [`QUICK_START.md`](QUICK_START.md) for the researcher-facing usage model.
+See [`QUICK_START.md`](QUICK_START.md) for the shortest usage guide and [`docs/installation_and_usage.md`](docs/installation_and_usage.md) for installation options.
+
+## Why this exists
+
+AI can already accelerate literature work, coding, data processing, simulations, analysis, and writing. The harder scientific problems remain:
+
+1. **What is the real uncertainty?**
+2. **Which next experiment, calculation, analysis, or observation would actually distinguish plausible explanations?**
+3. **What does the result support — and what does it not prove?**
+4. **Can we still reconstruct why we made this decision months later?**
+
+Scientific Research OS is designed around those questions rather than around maximizing autonomous activity.
+
+> **High scientific value with low interaction friction.**
+
+## See it in action
+
+Three short synthetic walkthroughs show the same scientific-method layer adapting to different kinds of research:
+
+- **[Wet-lab / experimental research](examples/wet_lab_showcase.md)** — competing explanations, discriminating experiments, controls, experimental provenance, and conservative mechanism claims.
+- **[Computational / simulation research](examples/computational_showcase.md)** — information-gain calculations, frozen comparisons, reproducible execution, and avoiding post-hoc descriptor chasing.
+- **[Machine learning / data science](examples/ml_showcase.md)** — leakage and robustness checks before model scaling, frozen validation definitions, and independent evidence.
+
+A more abstract end-to-end example is available in [`examples/generic_research_project.md`](examples/generic_research_project.md).
+
+## Four jobs the framework is optimized for
+
+### 1. Think clearly
+
+Identify the real uncertainty, plausible alternatives, and the smallest reliable observation that can change a scientific decision.
+
+### 2. Execute reliably
+
+When a task is sufficiently clear, turn it into a bounded mission with frozen objectives, relevant inputs or materials, required outputs, acceptance criteria, stop conditions, and reproducibility requirements.
+
+### 3. Do not overclaim
+
+Keep observation, interpretation, mechanistic support, and generalization distinct.
+
+> **Claim strength must not exceed evidence strength.**
+
+### 4. Preserve the research path
+
+Keep important results and decisions traceable so future researchers — or future AI sessions — can understand how the project reached its current state.
 
 ## Zero-config, not black-box
 
-The researcher should not have to operate the framework manually, but should be able to see both the **current scientific state** and the **historical chain** behind it.
+The researcher should not have to operate the framework manually, but should be able to inspect both the **current scientific state** and the **historical chain** behind it.
 
-For persistent projects, the preferred model is:
+For a persistent project, the preferred pattern is:
 
 ```text
 RESEARCH_STATE.md  -> concise view of where the project is now
 PROVENANCE.md      -> traceable history of important work and reproducibility metadata
 missions/          -> what was requested
 reviews/           -> how important results were checked
- decisions/        -> why important choices were made
- data/code/runs    -> the underlying scientific evidence and execution record
+decisions/         -> why important choices were made
+data/code/runs     -> underlying scientific evidence and execution records when relevant
 ```
 
 The AI maintains these artifacts when useful. The researcher does not fill them out manually.
 
-A persistent project may therefore look like:
+A project may therefore look like:
 
 ```text
 project/
-├── RESEARCH_STATE.md        # current human-readable scientific state
-├── PROVENANCE.md            # append-oriented provenance / reproducibility index
-├── missions/                # bounded delegated work, when it exists
-├── reviews/                 # acceptance / scientific review, when needed
-├── decisions/               # important persistent decisions
-├── data/                    # project data or links to canonical storage
-├── code/                    # code, scripts, notebooks, version-controlled methods
-├── runs/                    # execution / simulation / experiment records when useful
-└── ...existing project structure...
+├── RESEARCH_STATE.md
+├── PROVENANCE.md
+├── missions/
+├── reviews/
+├── decisions/
+└── ...existing data, code, experiments, notes, and results...
 ```
 
-This is a recommended transparency and reproducibility pattern, not a mandatory directory schema. Existing projects should keep their own organization when it already works.
+This is a transparency and reproducibility pattern, **not a mandatory directory schema**. Existing project organization should be preserved whenever possible.
 
 The key rule is:
 
 > **Current state may change; important scientific history should remain traceable.**
 
-If an interpretation changes, do not erase the old result or decision. Preserve the earlier record and explicitly add the correction, review, or superseding result.
-
-## Why history matters
-
-A scientific project must be able to answer two different questions:
-
-1. **Where are we now?** — answered by the current state view.
-2. **How did we get here, and can we reproduce it?** — answered by provenance, missions, runs, reviews, decisions, code/data versions, and historical records.
-
-For important analyses, computations, experiments, or datasets, useful provenance may include input identifiers, code commit/version, environment, parameters, random seed, sample/instrument/run IDs, output paths, hashes/checksums, linked reviews, and the decision that accepted or superseded the result.
-
-The framework should not create heavy metadata for every trivial edit. It should preserve history in proportion to scientific value and reproducibility risk.
-
-> **Automate the complexity, preserve the scientific transparency and history.**
-
-## What it is for
-
-AI can accelerate literature work, coding, data processing, simulations, analysis, and writing. The harder problem is deciding **what is worth doing next**, knowing **what the evidence really supports**, preserving **why decisions were made**, and ensuring important results remain **traceable and reproducible** as the project evolves.
-
-Scientific Research OS focuses on four high-value jobs:
-
-1. **Think clearly** — identify the real uncertainty, plausible alternatives, and evidence that would distinguish them.
-2. **Execute reliably** — turn a sufficiently clear task into a bounded, reproducible mission when delegation is useful.
-3. **Do not overclaim** — separate observation, interpretation, mechanism, and generalization before changing the scientific conclusion.
-4. **Preserve the research path** — keep enough history to audit, reproduce, and understand important results and decisions later.
-
-Everything else in the repository exists to support those jobs when needed.
-
-## Design principle
-
-> **Use the minimum structure necessary to improve scientific judgment and reproducibility.**
-
-The framework should absorb operational complexity rather than transfer it to the researcher.
-
-A simple question should stay simple. A costly, ambiguous, long-running, or multi-agent project may justify more structure. The user does not need to choose that level in advance.
-
-A second principle protects scientific validity:
-
-> **Claim strength must not exceed evidence strength.**
-
-## What should happen automatically
-
-Depending on the situation, the system may internally:
-
-- identify the key scientific uncertainty;
-- compare competing explanations;
-- suggest the lowest-cost discriminating test;
-- create acceptance criteria before flexible or expensive execution;
-- prepare a bounded mission for an execution agent;
-- review technical results independently from scientific interpretation;
-- record important decisions and revision triggers;
-- maintain the current research state;
-- preserve provenance for important results, runs, and decisions.
-
-These are implementation mechanisms, not mandatory user tasks.
-
-When the system creates or materially updates persistent artifacts, it should briefly tell the researcher what changed and where it is stored. The user should be able to inspect the work without being forced to manage it.
-
-## Internal architecture
-
-For complex work, the framework can separate roles internally while maintaining both current-state and historical views:
-
-```text
-                  Human Scientist
-                        ^
-                        |
-                Research State View
-                        ^
-                        |
-Scientific Reasoning / Strategy
-            |
-            v
-Planning when needed
-            |
-            v
-Bounded Execution when needed
-            |
-            v
-Independent Review when needed
-            |
-            v
-Decision Memory
-            |
-            v
-Provenance / History
-            |
-            +----------------------> Research State View
-```
-
-The named role files in `agents/` are abstractions for implementing this separation. They are not roles that the user must configure.
+If an interpretation changes, do not silently rewrite the old result or decision. Preserve the earlier record and add the correction, review, or superseding result explicitly.
 
 ## Evidence architecture
 
-When formal evidence distinctions matter, the framework uses four broad levels:
+When a formal evidence distinction is useful, the framework uses four broad levels:
 
 ```text
 Level 1  Observation / association
@@ -164,41 +123,93 @@ Predictive association alone is not automatically a mechanism. Temporal preceden
 
 See [`references/evidence_hierarchy.md`](references/evidence_hierarchy.md).
 
-## Cost-aware execution
+## Choosing the next step
 
-The strongest available model does not need to perform every task.
+The framework prefers decision-oriented research over activity for its own sake:
 
-Use stronger reasoning where scientific uncertainty is high. Use efficient capable models or tools for frozen operational work. If automatic routing is unavailable, use the current agent rather than forcing the researcher to reproduce a multi-agent architecture manually.
+```text
+What is the most important unresolved uncertainty?
+        ↓
+Which explanations are still plausible?
+        ↓
+What is the lowest-cost reliable observation that distinguishes them?
+        ↓
+How would each possible result change what we believe or do next?
+```
 
-Configuration should be optional and used mainly to override sensible defaults, such as cost limits, privacy requirements, preferred tools, or approval before expensive/irreversible actions.
+If existing evidence already answers the question, the correct recommendation may be to stop rather than generate more work.
+
+## Domain-adaptive execution and reproducibility
+
+The scientific-method layer is shared; execution details are not forced into one universal schema.
+
+**Experimental / wet-lab work** may need sample or specimen identity, reagent/material lot, protocol version, controls, replicates, critical conditions, instrument settings, experimental batch, deviations, and raw-data mapping.
+
+**Computational / simulation work** may need input structures or datasets, code/version, software environment, parameters, seeds, execution details when relevant, raw outputs, and logs.
+
+**ML / data-science work** may need dataset and split versions, preprocessing, model configuration, seeds, checkpoints, evaluation definitions, and raw predictions.
+
+**Theory / analytical work** may need assumptions, conventions, boundary conditions, derivation versions, approximations, solver settings, and external reference values.
+
+Only information that materially supports interpretation, audit, or reasonable reproduction should be required.
+
+See [`references/reproducibility.md`](references/reproducibility.md).
+
+## The Task Executor does not have to be AI
+
+A bounded research task may be carried out by:
+
+- a researcher, technician, or collaborator;
+- a laboratory instrument or robotic platform;
+- a workflow or automation system;
+- a script or coding agent;
+- an AI model;
+- a human-AI combination.
+
+Model selection is therefore a subproblem of executor selection, not the architecture of the entire research workflow. Stronger AI reasoning should be reserved for ambiguity and consequential scientific judgment; efficient capable models are appropriate for clear AI-executable subtasks.
+
+See [`agents/task_executor.md`](agents/task_executor.md) and [`references/model_selection.md`](references/model_selection.md).
+
+## Installation
+
+Scientific Research OS is repository-based and tool-independent. The goal is simply to make `SKILL.md` and the referenced repository resources available to your AI environment.
+
+Typical options are:
+
+1. import the repository through a native Agent Skills / project-instructions mechanism;
+2. attach or clone the repository for a repository-aware agent and point it to `SKILL.md`;
+3. in environments without reusable skill installation, use `SKILL.md` as persistent project instructions and make supporting files accessible when needed.
+
+After that, start with the scientific problem in ordinary language.
+
+See [`docs/installation_and_usage.md`](docs/installation_and_usage.md) for details.
 
 ## Internal resources
 
 ```text
 scientific-research-os/
-├── SKILL.md
-├── QUICK_START.md
-├── AGENTS.md
-├── agents/
-├── workflows/
-├── templates/
-│   ├── research_state.md       # current human-readable state
-│   ├── provenance_manifest.md  # historical provenance / reproducibility
-│   └── ...
-├── references/
-├── checklists/
-├── docs/
-├── reviews/
-└── examples/
+├── SKILL.md                    # canonical operating specification
+├── QUICK_START.md              # zero-config researcher entry
+├── AGENTS.md                   # repository / agent UX contract
+├── agents/                     # optional role abstractions
+├── workflows/                  # optional recurring procedures
+├── templates/                  # state, provenance, mission, decision artifacts
+├── references/                 # scientific reasoning principles
+├── checklists/                 # optional quality controls
+├── docs/                       # architecture and usage guidance
+├── reviews/                    # self-audit and release checks
+└── examples/                   # synthetic usage walkthroughs
 ```
 
-The existence of these files does **not** mean every project should use them.
+The existence of these resources does **not** mean every project should use all of them.
 
-## Privacy and unpublished research
+## Security and privacy
 
-The reusable core should not contain unpublished project data, confidential scientific strategy, private datasets, or identifiable research details unless a researcher explicitly chooses to add them to a private deployment.
+The reusable core is an instruction-and-document framework. It does not require credentials or a proprietary backend, and the v1.0 core does not depend on bundled executable automation or mandatory network calls.
 
-Public and reusable examples should remain synthetic or generic.
+Actual tools, APIs, scripts, instruments, or automation systems used by a downstream research project should be reviewed according to their own security, privacy, safety, and access requirements.
+
+Do not place unpublished project data, confidential scientific strategy, private datasets, credentials, or identifiable research details into the reusable/public framework unless explicitly intended for public release.
 
 ## What this is not
 
@@ -213,10 +224,18 @@ Scientific Research OS is not:
 
 The human researcher remains the final scientific decision maker.
 
+## Cite this project
+
+A [`CITATION.cff`](CITATION.cff) file is included so GitHub and compatible scholarly tools can provide citation metadata. When research depends materially on the framework, cite the specific version used.
+
 ## Status
 
-**v1.0.0** defines the stable scientific core: evidence discipline, adaptive strategy/execution separation, optional mission/review/memory artifacts, zero-config researcher entry, an inspectable research-state layer, and durable provenance for important scientific history.
+**v1.0.0** defines the stable scientific core: evidence discipline, adaptive strategy/execution separation, zero-config researcher entry, bounded missions when useful, independent review, an inspectable research-state layer, and durable provenance for important scientific history.
 
-Future changes should be judged by a simple standard:
+Release: **[Scientific Research OS v1.0.0](https://github.com/baixingle/scientific-research-os/releases/tag/v1.0.0)**
+
+> **Automate the complexity, preserve the scientific transparency and history.**
+
+Future changes should be judged by one standard:
 
 > **Does this materially improve scientific value, traceability, or reproducibility without adding unnecessary interaction friction?**
