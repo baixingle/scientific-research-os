@@ -1,119 +1,90 @@
-# Scientific Research OS v1.0.0
+# Scientific Research OS v1.0.1
 
 ## Overview
 
-Scientific Research OS v1.0 is a human-guided, tool-independent framework for improving scientific reasoning and research execution without forcing researchers through a rigid workflow.
+Scientific Research OS v1.0.1 is a backward-compatible patch release that makes the path from scientific reasoning to **tool-connected AI execution** explicit, while preserving the zero-config, human-guided scientific core introduced in v1.0.0.
 
-Its central design goal is simple:
-
-> **High scientific value with low interaction friction.**
-
-A researcher can begin with an ordinary scientific question. The framework infers the minimum useful structure, keeps important scientific state inspectable, and preserves enough history for later audit and reproduction.
-
-The scientific-method layer is domain-neutral. v1.0 is intended to support experimental and wet-lab research, computation and simulation, theory, machine learning and data science, literature-driven work, and hybrid projects. Domain-specific execution and reproducibility details appear only when they matter.
-
-## What Makes v1.0 Different
-
-### Zero-config by default
-
-Researchers do not need to configure agent roles, choose workflow modes, fill templates, or build a model-routing table before useful work begins.
-
-Start with the science. Additional structure appears only when it materially improves rigor, reliability, traceability, or handoff.
-
-### Transparent, not black-box
-
-For persistent projects, the system can maintain a concise `RESEARCH_STATE.md` showing the current question, evidence, interpretation, competing explanations, open uncertainties, claim boundary, active work, and next decision.
-
-The researcher does not fill this file manually. It is an AI-maintained, human-readable projection of the project state.
-
-### Traceable research history
-
-Important work should remain auditable and reproducible as the project evolves.
-
-A project can maintain append-oriented provenance through `PROVENANCE.md`, linking important inputs or materials, methods or protocols, code/environment versions when relevant, critical conditions, outputs, missions, reviews, decisions, and superseding results.
-
-Old scientific history should not be silently rewritten to match a newer interpretation.
-
-### Evidence-controlled reasoning
-
-The framework distinguishes:
+The central loop is now stated directly:
 
 ```text
-Level 1  Observation / association
-Level 2  Physical or temporal localization
-Level 3  Mechanistic / causal support
-Level 4  Transferable general principle
+Scientific question
+        ↓
+Competing explanations
+        ↓
+Most informative next step
+        ↓
+Bounded mission + acceptance criteria
+        ↓
+Available authorized tool / executor performs the work
+        ↓
+Technical acceptance / failure check
+        ↓
+Scientific review and claim boundary
+        ↓
+Research state + provenance update
 ```
 
-The core rule is:
+## What Changed in v1.0.1
 
-> **Claim strength must not exceed evidence strength.**
+### Tool-connected execution is explicit
 
-### Decision-oriented research
+When the host AI environment provides suitable authorized tools, Scientific Research OS should not stop at producing a plan if a well-bounded mission can be executed reliably in the current environment.
 
-The framework prioritizes information gain rather than research activity.
+Depending on the host environment, available capabilities may include files and repositories, code execution, shell or notebooks, analysis packages, literature/search systems, databases, local or remote compute, workflows, laboratory automation, instruments, robotic platforms, project APIs, or other domain-specific interfaces.
 
-Before recommending substantial work, ask what uncertainty it reduces, what alternatives it distinguishes, and how possible outcomes would change the next decision.
+Scientific Research OS itself remains tool-independent: it does not bundle or promise a universal execution engine or connector layer. It governs how available capabilities are turned into bounded, reviewable scientific work.
 
-### Adaptive execution
+If execution capability, authorization, safety, or budget is missing, the correct fallback is a precise mission or handoff — never a claim that the work was executed.
 
-When a task is sufficiently clear, it can be converted into a bounded mission with frozen objectives, relevant inputs or materials, required outputs, acceptance criteria, stop conditions, and domain-relevant reproducibility requirements.
+### Execution remains human-guided
 
-The Task Executor is not assumed to be an AI model. It may be a researcher, technician, collaborator, laboratory instrument, robotic or automation system, script, workflow, coding agent, AI model, or human-AI combination.
+Tool availability is not permission. Appropriate human approval remains required before expensive, irreversible, privacy-sensitive, safety-sensitive, ethically regulated, or strategically consequential actions when approval cannot be safely inferred.
 
-When AI is used, stronger reasoning capacity can be reserved for ambiguity, scientific judgment, interpretation, and review, while efficient capable models can handle clear operational subtasks.
+A proposed experiment, calculation, search, analysis, upload, instrument run, or other action must never enter the scientific record as completed unless the environment actually executed it and returned evidence of completion.
 
-### Domain-adaptive reproducibility
+### Better onboarding and examples
 
-Reproducibility uses a common scientific principle but not a universal metadata form.
+v1.0.1 also improves the project entry experience:
 
-For experimental work, important records may include samples/specimens, reagent lots, protocol versions, controls, replicates, critical conditions, instrument settings, experimental batches, deviations, and raw-data mapping.
+- README now makes the reasoning -> execution -> review -> provenance loop visible near the top;
+- Quick Start distinguishes direct execution from external mission handoff;
+- synthetic wet-lab, computational/simulation, and ML/data-science showcases demonstrate the domain-neutral scientific-method layer;
+- contributor guidance now invites real-world reports of missed alternatives, overclaiming, workflow friction, execution failures, and reproducibility gaps.
 
-For computational, simulation, ML, or data-science work, relevant records may include datasets or structures, code/version, environment, parameters, seeds, model/data-split definitions, logs, checkpoints, and raw outputs.
+### Release and citation hygiene
 
-For theoretical work, relevant records may include assumptions, definitions, boundary conditions, derivation versions, approximations, solver settings, and external reference values.
+- Added `CITATION.cff` with version-specific citation metadata.
+- Normalized MIT license metadata for correct GitHub recognition.
+- Preserved the v1.0 architecture: no new mandatory role, workflow, configuration system, or domain-specific module was introduced.
 
-Only information that materially supports interpretation, audit, or reasonable reproduction should be required.
+## What Remains the Same
+
+Scientific Research OS is still:
+
+- **zero-config by default** — start with the scientific problem, not framework setup;
+- **human-guided** — the researcher remains the final scientific decision maker;
+- **evidence-controlled** — claim strength must not exceed evidence strength;
+- **decision-oriented** — prioritize information gain rather than activity volume;
+- **transparent** — current scientific state should remain inspectable;
+- **historically traceable** — important scientific history is append-oriented rather than silently rewritten;
+- **domain-neutral at the scientific-method level** — applicable across wet-lab, computational/simulation, theory, ML/data science, literature-driven, and hybrid research;
+- **tool-independent** — it can use capabilities supplied by the host environment without depending on one vendor or execution stack.
 
 ## Core Components
 
-- `SKILL.md` — adaptive operating rules
-- `QUICK_START.md` — researcher-facing entry point
+- `SKILL.md` — canonical adaptive operating specification
+- `QUICK_START.md` — researcher-facing zero-config entry
 - `templates/research_state.md` — current human-readable scientific state
 - `templates/provenance_manifest.md` — historical provenance and reproducibility pattern
-- `templates/mission.md` — bounded execution handoff
-- `templates/acceptance.md` — result acceptance structure
+- `templates/mission.md` — bounded execution mission
+- `templates/acceptance.md` — technical/result acceptance structure
 - `templates/decision_log.md` — important scientific decisions
-- `workflows/research_memory.md` — durable project continuity
-- `agents/` — optional role abstractions for strategy, planning, execution, skepticism, and review
-
-The existence of these resources does not mean every project should use all of them.
-
-## Tool and Executor Independence
-
-Scientific Research OS is not tied to a specific AI product, coding agent, model provider, orchestration system, laboratory platform, or execution environment.
-
-Roles are functional abstractions. A capable human, instrument, automation system, model, coding agent, script, workflow engine, or combination can fill an execution role if it satisfies the scientific and reproducibility requirements.
-
-## Privacy
-
-The reusable core contains generic or synthetic material only. Private data, unpublished project details, confidential scientific strategy, credentials, and identifiable research examples should not be placed in the reusable/public framework unless explicitly authorized.
-
-## What v1.0 Is Not
-
-Scientific Research OS is not:
-
-- an autonomous scientist;
-- an automatic paper factory;
-- a mandatory project-management system;
-- a requirement to use multiple agents;
-- a requirement to formalize every scientific conversation;
-- a replacement for researcher judgment.
-
-The human researcher remains the final scientific decision maker.
+- `agents/task_executor.md` — domain-neutral executor abstraction
+- `references/reproducibility.md` — cross-domain reproducibility guidance
+- `examples/` — synthetic cross-domain walkthroughs
 
 ## Release Principle
 
 > **Automate the complexity, preserve the scientific transparency and history.**
 
-Use the minimum structure necessary to improve scientific judgment, reproducibility, and continuity.
+Use available execution capabilities to reduce unnecessary handoff friction, but never hide what actually happened, weaken evidence standards, or remove human control over consequential scientific actions.
