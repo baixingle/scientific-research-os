@@ -10,6 +10,8 @@ Its central design goal is simple:
 
 A researcher can begin with an ordinary scientific question. The framework infers the minimum useful structure, keeps important scientific state inspectable, and preserves enough history for later audit and reproduction.
 
+The scientific-method layer is domain-neutral. v1.0 is intended to support experimental and wet-lab research, computation and simulation, theory, machine learning and data science, literature-driven work, and hybrid projects. Domain-specific execution and reproducibility details appear only when they matter.
+
 ## What Makes v1.0 Different
 
 ### Zero-config by default
@@ -28,7 +30,7 @@ The researcher does not fill this file manually. It is an AI-maintained, human-r
 
 Important work should remain auditable and reproducible as the project evolves.
 
-A project can maintain append-oriented provenance through `PROVENANCE.md`, linking important inputs, methods, code/environment versions, parameters, outputs, missions, reviews, decisions, and superseding results.
+A project can maintain append-oriented provenance through `PROVENANCE.md`, linking important inputs or materials, methods or protocols, code/environment versions when relevant, critical conditions, outputs, missions, reviews, decisions, and superseding results.
 
 Old scientific history should not be silently rewritten to match a newer interpretation.
 
@@ -55,9 +57,23 @@ Before recommending substantial work, ask what uncertainty it reduces, what alte
 
 ### Adaptive execution
 
-When a task is sufficiently clear, it can be converted into a bounded mission with frozen inputs, outputs, acceptance criteria, stop conditions, and reproducibility requirements.
+When a task is sufficiently clear, it can be converted into a bounded mission with frozen objectives, relevant inputs or materials, required outputs, acceptance criteria, stop conditions, and domain-relevant reproducibility requirements.
 
-Stronger reasoning capacity can be reserved for ambiguity, scientific judgment, interpretation, and review; efficient capable tools can handle frozen operational work.
+The Task Executor is not assumed to be an AI model. It may be a researcher, technician, collaborator, laboratory instrument, robotic or automation system, script, workflow, coding agent, AI model, or human-AI combination.
+
+When AI is used, stronger reasoning capacity can be reserved for ambiguity, scientific judgment, interpretation, and review, while efficient capable models can handle clear operational subtasks.
+
+### Domain-adaptive reproducibility
+
+Reproducibility uses a common scientific principle but not a universal metadata form.
+
+For experimental work, important records may include samples/specimens, reagent lots, protocol versions, controls, replicates, critical conditions, instrument settings, experimental batches, deviations, and raw-data mapping.
+
+For computational, simulation, ML, or data-science work, relevant records may include datasets or structures, code/version, environment, parameters, seeds, model/data-split definitions, logs, checkpoints, and raw outputs.
+
+For theoretical work, relevant records may include assumptions, definitions, boundary conditions, derivation versions, approximations, solver settings, and external reference values.
+
+Only information that materially supports interpretation, audit, or reasonable reproduction should be required.
 
 ## Core Components
 
@@ -73,11 +89,11 @@ Stronger reasoning capacity can be reserved for ambiguity, scientific judgment, 
 
 The existence of these resources does not mean every project should use all of them.
 
-## Tool Independence
+## Tool and Executor Independence
 
-Scientific Research OS is not tied to a specific AI product, coding agent, model provider, orchestration system, or execution environment.
+Scientific Research OS is not tied to a specific AI product, coding agent, model provider, orchestration system, laboratory platform, or execution environment.
 
-Roles are functional abstractions. A capable model, coding agent, script, workflow engine, or human collaborator can fill a role if it satisfies the scientific and reproducibility requirements.
+Roles are functional abstractions. A capable human, instrument, automation system, model, coding agent, script, workflow engine, or combination can fill an execution role if it satisfies the scientific and reproducibility requirements.
 
 ## Privacy
 
