@@ -24,9 +24,15 @@ The researcher should be able to tell:
 - what is established evidence versus interpretation;
 - which alternatives still matter;
 - what the next decision is;
-- what persistent project artifacts have been created or updated.
+- what persistent project artifacts have been created or updated;
+- where the historical chain behind important results can be inspected.
 
-When a persistent workspace is available and the project becomes worth tracking, the system should normally create or update a concise `RESEARCH_STATE.md` automatically and tell the researcher where it is.
+When a persistent workspace is available and the project becomes worth tracking, the system should normally maintain two complementary views:
+
+```text
+RESEARCH_STATE.md  -> current scientific state
+PROVENANCE.md      -> important historical and reproducibility chain
+```
 
 A typical acknowledgement can be as simple as:
 
@@ -37,10 +43,36 @@ Current question: ...
 Main uncertainty: ...
 Next decision: ...
 
-Updated: RESEARCH_STATE.md
+Updated:
+- RESEARCH_STATE.md
+- PROVENANCE.md (new reproducibility entry P-0007)
 ```
 
-The researcher does not fill this file out. It is an AI-maintained view of the current scientific state.
+The researcher does not fill these files out. They are AI-maintained and researcher-readable.
+
+## Current state versus history
+
+`RESEARCH_STATE.md` is intentionally concise and mutable. It shows where the project is now.
+
+Historical records should not be overwritten just because the project changes direction. Important earlier results, missions, reviews, decisions, code/data versions, and execution records should remain traceable through `PROVENANCE.md` or equivalent project-native records.
+
+This means a future researcher or AI should be able to answer:
+
+> Why do we currently believe this?
+
+and then follow the chain back to:
+
+```text
+scientific question
+-> mission / protocol
+-> input data or sample
+-> code / method / environment / parameters
+-> execution or experiment run
+-> outputs
+-> review
+-> decision
+-> later correction or supersession, if any
+```
 
 ## What the system should do automatically
 
@@ -52,24 +84,29 @@ Use the lightest workflow that preserves scientific rigor:
 - ambiguous result -> separate evidence, interpretation, alternatives, and next test;
 - expensive or multi-step task -> create a bounded mission and acceptance criteria;
 - important conclusion -> perform an independent claim/evidence review;
-- long-running project -> maintain research state, decisions, and revision triggers.
+- persistent important work -> preserve provenance sufficient for later audit/reproduction;
+- long-running project -> maintain current state, historical decisions, provenance, and revision triggers.
 
-Templates, checklists, workflows, and agent-role files are implementation resources. They should appear to the user only when they make the work clearer, more reliable, or easier to inspect and hand off.
+Do not create heavy metadata for trivial work. Preserve history in proportion to scientific value and reproducibility risk.
 
 ## What project files may appear
 
-The system should create persistent artifacts only when they have a real purpose. A lightweight project might eventually contain:
+The system should create persistent artifacts only when they have a real purpose. A project might eventually contain:
 
 ```text
 RESEARCH_STATE.md
+PROVENANCE.md
 missions/
 reviews/
 decisions/
+data/
+code/
+runs/
 ```
 
 This is not a required folder structure. Existing project organization should be preserved whenever possible.
 
-The important behavior is that the system tells the researcher what it created and keeps `RESEARCH_STATE.md` readable as the project evolves.
+The important behavior is that the system tells the researcher what it created, keeps `RESEARCH_STATE.md` readable, and never lets the current-state summary erase the historical chain required for reproducibility.
 
 ## When to ask the researcher
 
@@ -83,6 +120,8 @@ Researchers can always override the default behavior in natural language, for ex
 
 > Show me the current research state.
 
+> Show me the provenance behind this conclusion.
+
 > Challenge my hypothesis aggressively.
 
 > Turn this into an execution mission.
@@ -93,6 +132,6 @@ Researchers can always override the default behavior in natural language, for ex
 
 ## Core principle
 
-> **Automate the complexity, preserve the scientific transparency.**
+> **Automate the complexity, preserve the scientific transparency and history.**
 
-Scientific Research OS should reduce avoidable error and cognitive overhead without turning research into a rigid or opaque procedure.
+Scientific Research OS should reduce avoidable error and cognitive overhead without turning research into a rigid or opaque procedure, while preserving enough historical structure for important work to remain traceable and reproducible.
