@@ -12,6 +12,7 @@ First stable core specification of Scientific Research OS.
 - Standardized the tool-independent orchestration protocol.
 - Removed duplicate and product-specific agent definitions from the core architecture.
 - Added explicit separation between strategy, planning, execution, review, and scientific memory when that separation improves reliability, cost, or bias control.
+- Generalized the Task Executor from an AI execution model to any appropriate bounded executor, including researchers, technicians, collaborators, instruments, laboratory automation, robotic platforms, scripts, workflows, and human-AI combinations.
 - Added a researcher-facing **Research State View** for the current scientific state.
 - Added a separate **Provenance / History Layer** so the mutable current-state view never replaces the historical chain required for audit and reproduction.
 
@@ -19,7 +20,7 @@ First stable core specification of Scientific Research OS.
 
 - Established the evidence hierarchy from observation/association to localization, mechanism, and generalization.
 - Added claim-boundary, mechanism-validation, scientific-review, and analysis-quality controls.
-- Formalized discovery-versus-validation separation and pre-frozen acceptance criteria for analyses where flexibility could create confirmation bias.
+- Formalized discovery-versus-validation separation and pre-frozen acceptance criteria for experiments and analyses where flexibility could create confirmation bias.
 - Added protection against post-hoc criterion changes, circular reasoning, cherry-picking, and unnecessary claim escalation.
 - Added historical-integrity rules: old results, reviews, decisions, and provenance records are preserved when later work corrects or supersedes them.
 
@@ -27,7 +28,8 @@ First stable core specification of Scientific Research OS.
 
 - Added Research Brief, Scientific Framework, Project Roadmap, Mission, Acceptance, Interpretation, Decision Log, Paper Story, Research State, and Provenance Manifest artifacts as optional internal/system resources.
 - Added an AI-maintained `RESEARCH_STATE.md` pattern for keeping the current question, evidence, interpretation, alternatives, uncertainties, active work, and next decision readable and inspectable.
-- Added an AI-maintained `PROVENANCE.md` pattern for tracing important inputs, code/method versions, environments, parameters, runs, outputs, reviews, decisions, and supersession relationships.
+- Added an AI-maintained `PROVENANCE.md` pattern for tracing important inputs/materials, method/protocol/code versions, critical conditions, executions/runs/experiments, outputs, reviews, decisions, and supersession relationships.
+- Made mission and reproducibility guidance explicitly domain-adaptive across wet-lab/experimental, computational/simulation, ML/data science, theoretical/analytical, and hybrid research without requiring every domain's metadata in every project.
 - Clarified the distinction between current state, provenance, decision records, and long-term scientific memory.
 - Added decision-oriented project lifecycle and research-memory workflows for projects that benefit from persistent structure.
 - Added cost-aware model-selection and resource-allocation principles.
