@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented here.
 
+## Unreleased
+
+### Tool-connected execution
+
+- Clarified that Scientific Research OS can continue from reasoning into **bounded tool execution** when the host AI environment provides suitable authorized capabilities.
+- Defined the intended loop as: scientific question -> informative next step -> bounded mission -> tool/executor execution -> technical acceptance -> scientific review -> state/provenance update.
+- Made explicit that available tools may include code execution, files, workflows, search/databases, remote compute, laboratory automation, instruments, robotic platforms, and other project-specific interfaces.
+- Added the rule that a proposed action must never be represented as executed unless the environment actually performed it and returned evidence of completion.
+- Clarified fallback behavior: when the required capability or authorization is unavailable, produce a precise mission/handoff rather than pretending execution occurred.
+- Preserved human approval for expensive, irreversible, privacy-sensitive, safety-sensitive, ethically regulated, or strategically consequential actions.
+
 ## v1.0.0
 
 First stable core specification of Scientific Research OS.
