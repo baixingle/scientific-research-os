@@ -1,41 +1,53 @@
 # Scientific Research OS Quick Start
 
-## Purpose
+## Start with the science
 
-Scientific Research OS helps researchers organize AI-assisted scientific workflows.
+There is no framework-specific setup required before the first useful interaction.
 
-The core principle is:
+Describe the research problem in ordinary language. For example:
 
-> Strategy defines the question. Execution follows a mission. Review protects scientific validity.
+> I observed X, I suspect Y may be involved, but I am not sure what would distinguish Y from the alternatives. What should I do next?
 
-## Start a New Project
+or:
 
-1. Create a Research Brief
-2. Build a Scientific Framework
-3. Define competing hypotheses
-4. Design a roadmap
-5. Generate execution missions
-6. Review evidence before updating claims
+> Here are the latest results. What do they actually support, what remains uncertain, and what is the most informative next step?
 
-## Recommended AI Workflow
+That is enough to start.
 
-```
-Human Scientist
-      |
-Strategic Agent
-      |
-Planner
-      |
-Task Executor Agent
-      |
-Reviewer Agent
-      |
-Scientific Memory
-```
+## What the system should do automatically
 
-## Important Rules
+The framework should infer the minimum structure needed for the current problem. It may internally identify the key uncertainty, competing explanations, useful evidence, acceptance criteria, or a bounded execution mission, but the researcher should not have to fill templates or configure agent roles just to begin.
 
-- Do not give execution agents unnecessary strategic assumptions.
-- Do not convert correlation into mechanism.
-- Define acceptance criteria before execution.
-- Record decisions and evidence, not only conversations.
+Use the lightest workflow that preserves scientific rigor:
+
+- simple question -> reason directly;
+- ambiguous result -> separate evidence, interpretation, alternatives, and next test;
+- expensive or multi-step task -> create a bounded mission and acceptance criteria;
+- important conclusion -> perform an independent claim/evidence review;
+- long-running project -> record decisions and revision triggers in scientific memory.
+
+Templates, checklists, workflows, and agent-role files are implementation resources. They should appear to the user only when they make the work clearer or more reliable.
+
+## When to ask the researcher
+
+Do not ask for configuration that can be inferred safely. Ask only when the missing choice would materially change scientific interpretation, cost, access to data/tools, confidentiality, or an irreversible action.
+
+## Optional control
+
+Researchers can always override the default behavior in natural language, for example:
+
+> Keep this lightweight.
+
+> Challenge my hypothesis aggressively.
+
+> Turn this into an execution mission.
+
+> Do not run anything expensive without asking me first.
+
+> Review the result as a skeptical referee.
+
+## Core principle
+
+> Use the minimum structure necessary to improve scientific judgment.
+
+Scientific Research OS should reduce avoidable error and cognitive overhead without turning research into a rigid procedure.
