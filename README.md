@@ -18,7 +18,42 @@ or:
 
 The framework should infer the minimum structure needed for the problem. Researchers should not have to choose agent roles, copy templates, select workflow modes, or configure model routing just to begin.
 
-See [`QUICK_START.md`](QUICK_START.md) for the full zero-config usage philosophy.
+See [`QUICK_START.md`](QUICK_START.md) for the researcher-facing usage model.
+
+## Zero-config, not black-box
+
+The researcher should not have to operate the framework manually, but should be able to see the scientific state it is maintaining.
+
+When a persistent project workspace is available, the system can automatically maintain a concise `RESEARCH_STATE.md` that shows:
+
+- the current scientific question;
+- established evidence and the current interpretation;
+- competing explanations that still matter;
+- open uncertainties;
+- the current claim boundary;
+- active work;
+- the next scientific decision;
+- important decisions and rejected paths;
+- links to the most relevant missions, reviews, decisions, and evidence.
+
+The AI maintains this file. The researcher does not fill it out.
+
+A minimal persistent project may therefore look like:
+
+```text
+project/
+├── RESEARCH_STATE.md        # human-readable current scientific state
+├── missions/                # only when bounded delegated work exists
+├── reviews/                 # only when results need formal review
+├── decisions/               # only for important persistent decisions
+└── ...existing data/code/results...
+```
+
+This is a recommended transparency layer, not a mandatory directory schema. Existing projects should keep their own organization when it already works.
+
+The important distinction is:
+
+> **Automate the complexity, preserve the scientific transparency.**
 
 ## What it is for
 
@@ -36,7 +71,7 @@ Everything else in the repository exists to support those jobs when needed.
 
 > **Use the minimum structure necessary to improve scientific judgment.**
 
-The framework should absorb complexity rather than transfer it to the researcher.
+The framework should absorb operational complexity rather than transfer it to the researcher.
 
 A simple question should stay simple. A costly, ambiguous, long-running, or multi-agent project may justify more structure. The user does not need to choose that level in advance.
 
@@ -54,11 +89,12 @@ Depending on the situation, the system may internally:
 - create acceptance criteria before flexible or expensive execution;
 - prepare a bounded mission for an execution agent;
 - review technical results independently from scientific interpretation;
-- record important decisions and revision triggers for long projects.
+- record important decisions and revision triggers for long projects;
+- maintain or update the researcher-facing project state when continuity matters.
 
 These are implementation mechanisms, not mandatory user tasks.
 
-Templates, checklists, workflows, and role definitions should be surfaced only when they make the work clearer, safer, easier to review, or easier to hand off.
+When the system creates or materially updates persistent artifacts, it should briefly tell the researcher what changed and where it is stored. The user should be able to inspect the work without being forced to manage it.
 
 ## Example interaction
 
@@ -84,29 +120,34 @@ Current claim boundary:
 The present data support association X; they do not yet establish mechanism A.
 ```
 
-The researcher should not need to see a hypothesis-tree template, a mission form, a reviewer checklist, or an internal agent graph unless those artifacts are actually useful.
+If this discussion becomes a persistent project, the same information can be summarized automatically in `RESEARCH_STATE.md` so the researcher can inspect the current state at any time.
 
 ## Internal architecture
 
 For complex work, the framework can separate roles internally:
 
 ```text
-Human Scientist
-      |
-      v
+                  Human Scientist
+                        ^
+                        |
+                Research State View
+                        ^
+                        |
 Scientific Reasoning / Strategy
-      |
-      v
+            |
+            v
 Planning when needed
-      |
-      v
+            |
+            v
 Bounded Execution when needed
-      |
-      v
+            |
+            v
 Independent Review when needed
-      |
-      v
+            |
+            v
 Decision Memory when useful
+            |
+            +----------------------> Research State View
 ```
 
 The named role files in `agents/` are abstractions for implementing this separation. They are not roles that the user must configure.
@@ -143,11 +184,13 @@ The repository contains reusable resources for situations where extra structure 
 ```text
 scientific-research-os/
 ├── SKILL.md                 # adaptive operating rules
-├── QUICK_START.md           # zero-config researcher entry
+├── QUICK_START.md           # researcher entry and transparency model
 ├── AGENTS.md                # repository and agent UX contract
 ├── agents/                  # optional role abstractions
 ├── workflows/               # optional recurring procedures
-├── templates/               # internal reusable artifacts
+├── templates/
+│   ├── research_state.md    # AI-maintained human-readable state view
+│   └── ...                  # other internal reusable artifacts
 ├── references/              # scientific reasoning principles
 ├── checklists/              # optional quality-control aids
 ├── docs/                    # usage and architecture notes
@@ -178,7 +221,7 @@ The human researcher remains the final scientific decision maker.
 
 ## Status
 
-**v1.0.0** defines the stable scientific core: evidence discipline, adaptive strategy/execution separation, optional mission/review/memory artifacts, and a zero-config researcher-facing philosophy.
+**v1.0.0** defines the stable scientific core: evidence discipline, adaptive strategy/execution separation, optional mission/review/memory artifacts, zero-config researcher entry, and an inspectable research-state layer.
 
 Future changes should be judged by a simple standard:
 
