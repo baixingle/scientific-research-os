@@ -14,6 +14,29 @@ or:
 
 That is enough to start.
 
+If the AI environment already has suitable tools and permissions, Scientific Research OS can continue beyond advice: it can define a bounded mission, use those tools to carry out the work, check whether the outputs satisfy the acceptance criteria, review what the result scientifically supports, and update the project state and provenance.
+
+If the required execution capability is unavailable, the system should make that limitation explicit and produce a precise handoff instead of pretending the task was executed.
+
+## The normal loop
+
+For work that actually needs execution, the intended flow is:
+
+```text
+scientific question
+-> uncertainty / competing explanations
+-> most informative next step
+-> bounded mission + acceptance criteria
+-> AI + available tools execute, when authorized and capable
+-> technical acceptance / failure check
+-> scientific interpretation and claim review
+-> state + provenance update
+```
+
+The researcher should not have to manually recreate this sequence or decide which internal role handles each step.
+
+Tool-connected execution is environment-dependent. Available tools may include files, code execution, shell or workflow systems, analysis packages, search or literature systems, databases, remote compute, laboratory automation, instruments, robotic platforms, or other project-specific interfaces. Scientific Research OS does not itself provide those connectors; it governs their use when the host environment provides them.
+
 ## What the researcher should see
 
 Zero-config does not mean the system works invisibly.
@@ -24,6 +47,8 @@ The researcher should be able to tell:
 - what is established evidence versus interpretation;
 - which alternatives still matter;
 - what the next decision is;
+- whether a task is being reasoned about, executed, reviewed, or handed off;
+- which tools or external executors materially produced an important result;
 - what persistent project artifacts have been created or updated;
 - where the historical chain behind important results can be inspected.
 
@@ -43,6 +68,11 @@ Current question: ...
 Main uncertainty: ...
 Next decision: ...
 
+Execution:
+- bounded mission M-0012
+- used available analysis / compute tools
+- acceptance check passed
+
 Updated:
 - RESEARCH_STATE.md
 - PROVENANCE.md (new reproducibility entry P-0007)
@@ -54,7 +84,7 @@ The researcher does not fill these files out. They are AI-maintained and researc
 
 `RESEARCH_STATE.md` is intentionally concise and mutable. It shows where the project is now.
 
-Historical records should not be overwritten just because the project changes direction. Important earlier results, missions, reviews, decisions, code/data versions, and execution records should remain traceable through `PROVENANCE.md` or equivalent project-native records.
+Historical records should not be overwritten just because the project changes direction. Important earlier results, missions, reviews, decisions, code/data versions, tools/executors, and execution records should remain traceable through `PROVENANCE.md` or equivalent project-native records.
 
 This means a future researcher or AI should be able to answer:
 
@@ -67,6 +97,7 @@ scientific question
 -> mission / protocol
 -> input data or sample
 -> code / method / environment / parameters
+-> tool / instrument / workflow / executor
 -> execution or experiment run
 -> outputs
 -> review
@@ -82,7 +113,10 @@ Use the lightest workflow that preserves scientific rigor:
 
 - simple question -> reason directly;
 - ambiguous result -> separate evidence, interpretation, alternatives, and next test;
-- expensive or multi-step task -> create a bounded mission and acceptance criteria;
+- clear tool-executable task -> create a bounded mission and use available authorized tools to execute it;
+- task that cannot be executed in the current environment -> create a precise handoff to the appropriate human, instrument, workflow, or external agent;
+- expensive or consequential task -> define acceptance / stop conditions and obtain human approval when needed before execution;
+- returned result -> check technical completion before scientific interpretation;
 - important conclusion -> perform an independent claim/evidence review;
 - persistent important work -> preserve provenance sufficient for later audit/reproduction;
 - long-running project -> maintain current state, historical decisions, provenance, and revision triggers.
@@ -106,11 +140,13 @@ runs/
 
 This is not a required folder structure. Existing project organization should be preserved whenever possible.
 
-The important behavior is that the system tells the researcher what it created, keeps `RESEARCH_STATE.md` readable, and never lets the current-state summary erase the historical chain required for reproducibility.
+The important behavior is that the system tells the researcher what it created, what materially executed the work, keeps `RESEARCH_STATE.md` readable, and never lets the current-state summary erase the historical chain required for reproducibility.
 
 ## When to ask the researcher
 
-Do not ask for configuration that can be inferred safely. Ask only when the missing choice would materially change scientific interpretation, cost, access to data/tools, confidentiality, or an irreversible action.
+Do not ask for configuration that can be inferred safely. Ask only when the missing choice would materially change scientific interpretation, cost, access to data/tools, confidentiality, safety/approval constraints, or an irreversible action.
+
+Having a tool available is not the same as having permission to use it. Expensive, irreversible, privacy-sensitive, safety-sensitive, ethically regulated, or strategically consequential execution should receive appropriate human approval.
 
 ## Optional control
 
@@ -126,6 +162,10 @@ Researchers can always override the default behavior in natural language, for ex
 
 > Turn this into an execution mission.
 
+> Use the available tools to carry this mission out.
+
+> Prepare the mission, but do not execute it yet.
+
 > Do not run anything expensive without asking me first.
 
 > Review the result as a skeptical referee.
@@ -134,4 +174,4 @@ Researchers can always override the default behavior in natural language, for ex
 
 > **Automate the complexity, preserve the scientific transparency and history.**
 
-Scientific Research OS should reduce avoidable error and cognitive overhead without turning research into a rigid or opaque procedure, while preserving enough historical structure for important work to remain traceable and reproducible.
+Scientific Research OS should reduce avoidable error and cognitive overhead without turning research into a rigid or opaque procedure. When tool execution is available, automation should extend the scientific workflow rather than hide it: the user should still be able to see what was executed, what evidence came back, and how that changed the scientific state.
