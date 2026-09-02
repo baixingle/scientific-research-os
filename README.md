@@ -4,9 +4,9 @@
 [![License](https://img.shields.io/github/license/baixingle/scientific-research-os)](LICENSE)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-000000)](SKILL.md)
 
-**A zero-config, human-guided Agent Skill for rigorous, traceable, and reproducible scientific research.**
+**A zero-config, human-guided Agent Skill for rigorous, tool-connected, traceable, and reproducible scientific research.**
 
-Scientific Research OS helps researchers decide **what is worth doing next**, keep **claim strength proportional to evidence**, delegate bounded work reliably, and preserve the **scientific history needed to understand and reproduce important results later**.
+Scientific Research OS helps researchers decide **what is worth doing next**, turn clear next steps into **bounded execution**, use **available AI tools to carry out the work when the host environment supports it**, keep **claim strength proportional to evidence**, and preserve the **scientific history needed to understand and reproduce important results later**.
 
 It is tool-independent and designed for experimental / wet-lab research, computational science and simulation, theory, machine learning and data science, literature-driven work, and hybrid projects.
 
@@ -26,20 +26,53 @@ or:
 
 The framework infers the minimum useful structure. Researchers should not have to choose agent roles, copy templates, select workflow modes, or configure model routing just to begin.
 
+When the host AI environment has the required tools and permissions, the workflow can continue beyond advice: the AI can turn a sufficiently clear next step into a bounded mission, use available tools to execute it, check the returned outputs, review what the evidence supports, and update research state and provenance. If execution capability is unavailable, the same mission becomes a precise handoff instead of pretending the work was done.
+
 See [`QUICK_START.md`](QUICK_START.md) for the shortest usage guide and [`docs/installation_and_usage.md`](docs/installation_and_usage.md) for installation options.
 
 ## Why this exists
 
-AI can already accelerate literature work, coding, data processing, simulations, analysis, and writing. The harder scientific problems remain:
+AI can already accelerate literature work, coding, data processing, simulations, analysis, and writing. In tool-enabled environments it can increasingly carry out those operations directly. The harder scientific problems remain:
 
 1. **What is the real uncertainty?**
 2. **Which next experiment, calculation, analysis, or observation would actually distinguish plausible explanations?**
-3. **What does the result support — and what does it not prove?**
-4. **Can we still reconstruct why we made this decision months later?**
+3. **What should be delegated to AI and tools, with what boundaries and acceptance criteria?**
+4. **What does the returned result support — and what does it not prove?**
+5. **Can we still reconstruct why we made this decision months later?**
 
-Scientific Research OS is designed around those questions rather than around maximizing autonomous activity.
+Scientific Research OS is designed around that full loop rather than around maximizing autonomous activity.
+
+> **Reason scientifically → execute with available tools → review the evidence → preserve the research history.**
 
 > **High scientific value with low interaction friction.**
+
+## From reasoning to tool-connected execution
+
+Scientific Research OS is not only a planning or prompting framework. When the host AI has authorized access to suitable tools, a clear research task can move through a controlled execution loop:
+
+```text
+Scientific question
+        ↓
+Competing explanations
+        ↓
+Most informative next step
+        ↓
+Bounded mission + acceptance criteria
+        ↓
+AI uses available tools to execute
+        ↓
+Technical acceptance / failure check
+        ↓
+Scientific review and claim boundary
+        ↓
+RESEARCH_STATE.md + PROVENANCE.md
+```
+
+Depending on the environment and research domain, those tools may include files, code execution, shell or workflow systems, data-analysis packages, literature/search systems, databases, remote compute, laboratory automation, instruments, robotic platforms, or other project-specific interfaces.
+
+The framework itself does **not** bundle or promise access to those tools. It governs how available capabilities are selected and used. Expensive, irreversible, privacy-sensitive, safety-sensitive, ethically regulated, or strategically consequential actions should still require appropriate human approval.
+
+If a tool cannot perform the needed operation, Scientific Research OS should say so and produce a reproducible mission or handoff rather than claiming execution occurred.
 
 ## See it in action
 
@@ -51,23 +84,29 @@ Three short synthetic walkthroughs show the same scientific-method layer adaptin
 
 A more abstract end-to-end example is available in [`examples/generic_research_project.md`](examples/generic_research_project.md).
 
-## Four jobs the framework is optimized for
+## Five jobs the framework is optimized for
 
 ### 1. Think clearly
 
 Identify the real uncertainty, plausible alternatives, and the smallest reliable observation that can change a scientific decision.
 
-### 2. Execute reliably
+### 2. Choose the most informative next step
+
+Prioritize work by information gain: ask which observation, experiment, calculation, analysis, or derivation is most likely to distinguish the remaining explanations and change the next decision.
+
+### 3. Execute with AI and tools when available
 
 When a task is sufficiently clear, turn it into a bounded mission with frozen objectives, relevant inputs or materials, required outputs, acceptance criteria, stop conditions, and reproducibility requirements.
 
-### 3. Do not overclaim
+If the host AI has the necessary authorized tools, use them to carry out the mission instead of stopping at a plan. If not, produce a precise handoff to the appropriate human, instrument, workflow, or external executor.
 
-Keep observation, interpretation, mechanistic support, and generalization distinct.
+### 4. Review without overclaiming
+
+Check technical completion separately from scientific meaning. Keep observation, interpretation, mechanistic support, and generalization distinct.
 
 > **Claim strength must not exceed evidence strength.**
 
-### 4. Preserve the research path
+### 5. Preserve the research path
 
 Keep important results and decisions traceable so future researchers — or future AI sessions — can understand how the project reached its current state.
 
@@ -166,6 +205,8 @@ A bounded research task may be carried out by:
 - an AI model;
 - a human-AI combination.
 
+When the current AI environment itself has suitable authorized tools, it may act as the executor and continue directly from reasoning into execution. When it does not, executor selection should route the mission to the appropriate external system or human rather than forcing an AI-only workflow.
+
 Model selection is therefore a subproblem of executor selection, not the architecture of the entire research workflow. Stronger AI reasoning should be reserved for ambiguity and consequential scientific judgment; efficient capable models are appropriate for clear AI-executable subtasks.
 
 See [`agents/task_executor.md`](agents/task_executor.md) and [`references/model_selection.md`](references/model_selection.md).
@@ -180,7 +221,7 @@ Typical options are:
 2. attach or clone the repository for a repository-aware agent and point it to `SKILL.md`;
 3. in environments without reusable skill installation, use `SKILL.md` as persistent project instructions and make supporting files accessible when needed.
 
-After that, start with the scientific problem in ordinary language.
+After that, start with the scientific problem in ordinary language. Any tools already available and authorized in the host environment can then be used for bounded execution when appropriate; Scientific Research OS does not require a separate orchestration product.
 
 See [`docs/installation_and_usage.md`](docs/installation_and_usage.md) for details.
 
@@ -205,9 +246,9 @@ The existence of these resources does **not** mean every project should use all 
 
 ## Security and privacy
 
-The reusable core is an instruction-and-document framework. It does not require credentials or a proprietary backend, and the v1.0 core does not depend on bundled executable automation or mandatory network calls.
+The reusable core is an instruction-and-document framework. It does not require credentials or a proprietary backend, and the v1.0 core does not bundle an execution engine, tool connector, or mandatory network calls.
 
-Actual tools, APIs, scripts, instruments, or automation systems used by a downstream research project should be reviewed according to their own security, privacy, safety, and access requirements.
+When a downstream AI environment already provides tools, APIs, scripts, remote compute, instruments, or automation systems, Scientific Research OS may direct their use for an approved bounded mission. Those capabilities remain governed by their own permissions, security, privacy, safety, and access requirements.
 
 Do not place unpublished project data, confidential scientific strategy, private datasets, credentials, or identifiable research details into the reusable/public framework unless explicitly intended for public release.
 
@@ -216,6 +257,7 @@ Do not place unpublished project data, confidential scientific strategy, private
 Scientific Research OS is not:
 
 - an autonomous scientist;
+- a universal tool connector or execution engine;
 - an automatic paper factory;
 - a mandatory project-management system;
 - a requirement to use multiple AI agents;
@@ -231,6 +273,8 @@ A [`CITATION.cff`](CITATION.cff) file is included so GitHub and compatible schol
 ## Status
 
 **v1.0.0** defines the stable scientific core: evidence discipline, adaptive strategy/execution separation, zero-config researcher entry, bounded missions when useful, independent review, an inspectable research-state layer, and durable provenance for important scientific history.
+
+The current `main` branch also clarifies the tool-connected execution path: when the host environment provides suitable authorized tools, a bounded mission may be executed directly before review and provenance updates.
 
 Release: **[Scientific Research OS v1.0.0](https://github.com/baixingle/scientific-research-os/releases/tag/v1.0.0)**
 
