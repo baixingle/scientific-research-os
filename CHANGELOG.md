@@ -11,28 +11,30 @@ First stable core specification of Scientific Research OS.
 - Finalized functional agent roles: Strategic Agent, Skeptic, Planning Agent, Task Executor Agent, and Reviewer Agent.
 - Standardized the tool-independent orchestration protocol.
 - Removed duplicate and product-specific agent definitions from the core architecture.
-- Added explicit separation between strategy, planning, execution, review, and scientific memory.
+- Added explicit separation between strategy, planning, execution, review, and scientific memory when that separation improves reliability, cost, or bias control.
 
 ### Scientific rigor
 
 - Established the evidence hierarchy from observation/association to localization, mechanism, and generalization.
 - Added claim-boundary, mechanism-validation, scientific-review, and analysis-quality controls.
-- Formalized discovery-versus-validation separation and pre-frozen acceptance criteria.
-- Added explicit protection against post-hoc criterion changes, circular reasoning, cherry-picking, and unnecessary claim escalation.
+- Formalized discovery-versus-validation separation and pre-frozen acceptance criteria for analyses where flexibility could create confirmation bias.
+- Added protection against post-hoc criterion changes, circular reasoning, cherry-picking, and unnecessary claim escalation.
 
 ### Research operations
 
-- Added Research Brief, Scientific Framework, Project Roadmap, Mission, Acceptance, Interpretation, Decision Log, and Paper Story artifacts.
-- Added decision-oriented project lifecycle and research-memory workflows.
+- Added Research Brief, Scientific Framework, Project Roadmap, Mission, Acceptance, Interpretation, Decision Log, and Paper Story artifacts as optional internal resources.
+- Added decision-oriented project lifecycle and research-memory workflows for projects that benefit from persistent structure.
 - Added cost-aware model-selection and resource-allocation principles.
 - Added literature-to-strategy, unexpected-result, and mechanism-claim workflows.
 
 ### Usability and governance
 
-- Expanded `SKILL.md` into the stable workflow entry point with stage gates and progressive references.
-- Finalized README architecture and usage guidance.
-- Added `AGENTS.md`, Quick Start, architecture documentation, release checklist, self-review, and reviewer mode.
-- Added privacy rules preventing unpublished project data from entering generic/public framework examples.
+- Adopted a **zero-config, natural-language-first** default: researchers can begin with an ordinary scientific question without selecting roles, workflow modes, templates, or model routing.
+- Changed `SKILL.md` from a mandatory staged workflow into an adaptive framework that uses the minimum structure required by the problem.
+- Reframed templates, checklists, workflows, and agent-role files as internal/optional implementation resources rather than forms every researcher must complete.
+- Added an agent UX contract: do not ask for choices that can be inferred safely; surface structure only when it materially improves scientific value or reliability.
+- Simplified Quick Start and installation guidance around the principle that complexity belongs inside the framework, not in researcher setup.
+- Preserved privacy rules preventing unpublished project data from entering generic/public framework examples.
 
 ## v0.8
 
