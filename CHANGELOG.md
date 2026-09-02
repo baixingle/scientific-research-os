@@ -2,7 +2,9 @@
 
 All notable changes to this project are documented here.
 
-## Unreleased
+## v1.0.1
+
+Patch release focused on making the existing execution model clearer, more discoverable, and easier to evaluate without changing the core scientific architecture introduced in v1.0.0.
 
 ### Tool-connected execution
 
@@ -12,6 +14,19 @@ All notable changes to this project are documented here.
 - Added the rule that a proposed action must never be represented as executed unless the environment actually performed it and returned evidence of completion.
 - Clarified fallback behavior: when the required capability or authorization is unavailable, produce a precise mission/handoff rather than pretending execution occurred.
 - Preserved human approval for expensive, irreversible, privacy-sensitive, safety-sensitive, ethically regulated, or strategically consequential actions.
+
+### Usability and discoverability
+
+- Reworked the README so the path from scientific reasoning to AI/tool execution, review, and provenance is visible near the top of the project.
+- Expanded the Quick Start to distinguish direct tool execution from mission handoff when capabilities are unavailable.
+- Added concise synthetic wet-lab, computational/simulation, and ML/data-science showcases.
+- Improved contributor guidance around real-world failure reports, scientific friction, missing alternatives, claim-boundary failures, and reproducibility gaps.
+
+### Release hygiene
+
+- Added `CITATION.cff` for version-specific scholarly citation metadata.
+- Normalized the MIT license metadata so GitHub recognizes the repository license correctly.
+- Preserved compatibility with the v1.0 scientific core; no new mandatory roles, workflows, configuration, or domain-specific modules were introduced.
 
 ## v1.0.0
 
