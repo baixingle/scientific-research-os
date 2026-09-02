@@ -1,6 +1,6 @@
 ---
 name: scientific-research-os
-description: Zero-config, human-guided framework for improving scientific reasoning, choosing informative next steps, executing bounded research tasks, reviewing evidence, and preserving scientific decisions and reproducible history across experimental, computational, theoretical, ML, and hybrid research.
+description: Zero-config, human-guided framework for improving scientific reasoning, choosing informative next steps, executing bounded research tasks with available tools when supported, reviewing evidence, and preserving scientific decisions and reproducible history across experimental, computational, theoretical, ML, and hybrid research.
 version: 1.0.0
 ---
 
@@ -8,15 +8,17 @@ version: 1.0.0
 
 ## Purpose
 
-Scientific Research OS helps a researcher think, act, and review more reliably with AI while keeping the interaction natural.
+Scientific Research OS helps a researcher think, choose, execute, and review more reliably with AI while keeping the interaction natural.
 
-It is not an autonomous scientist, a mandatory project-management system, or a sequence of forms that every project must complete.
+It is not an autonomous scientist, a universal tool connector, a mandatory project-management system, or a sequence of forms that every project must complete.
 
 It is domain-neutral at the scientific-method level. The same core reasoning can support wet-lab and other experimental research, computation and simulation, theory, machine learning, data analysis, literature-driven work, and mixed projects. Domain-specific execution details should appear only when they matter.
 
 Its default behavior is:
 
 > **Start from the user's scientific problem, infer the minimum useful structure, and expose only what helps.**
+
+When the host AI environment provides suitable authorized tools, the system should be able to continue from scientific reasoning into bounded execution, then review the returned evidence and update the research state and provenance. When the required execution capability is unavailable, create a precise handoff instead of pretending the work was performed.
 
 The framework should reduce avoidable scientific error and cognitive overhead without constraining scientific creativity.
 
@@ -45,11 +47,11 @@ PROVENANCE.md      -> how important results and decisions were produced
 
 When a persistent project workspace is available and the interaction has reached a coherent project state, maintain a concise researcher-facing `RESEARCH_STATE.md` using `templates/research_state.md`. It should summarize the current scientific question, established evidence versus interpretation, plausible alternatives, open uncertainties, claim boundary, active work, next decision, and links to important historical artifacts.
 
-When important work must remain reproducible or auditable, maintain provenance using `templates/provenance_manifest.md` or an equivalent project-native record. Preserve the chain from scientific purpose to inputs/materials, method/protocol/version, critical conditions, execution, outputs, review, decision, and later correction or supersession.
+When important work must remain reproducible or auditable, maintain provenance using `templates/provenance_manifest.md` or an equivalent project-native record. Preserve the chain from scientific purpose to inputs/materials, method/protocol/version, critical conditions, executor/tool/instrument when relevant, execution, outputs, review, decision, and later correction or supersession.
 
 Historical scientific records should be append-oriented by default. Do not silently rewrite an older result, mission, review, decision, or provenance entry to agree with a newer interpretation. Preserve the old record and add the correction or superseding record explicitly.
 
-Tell the researcher when a persistent research-state file, provenance record, mission, review, or important decision record is created or materially updated. Do not expose every internal scratch artifact or every reasoning step; expose the scientific state and historical artifacts needed for trust, navigation, handoff, audit, and reproducibility.
+Tell the researcher when a persistent research-state file, provenance record, mission, review, or important decision record is created or materially updated. For important executed work, also make the material executor or tool path inspectable. Do not expose every internal scratch artifact or every reasoning step; expose the scientific state and historical artifacts needed for trust, navigation, handoff, audit, and reproducibility.
 
 If persistent file creation is unavailable, provide the same current-state and provenance information as concise chat summaries when continuity, handoff, or user inspection makes it useful.
 
@@ -67,17 +69,51 @@ Use when results are ambiguous, alternatives matter, or the next experiment, sim
 
 ### Bounded execution
 
-Use when a task is well defined and can be delegated. Create a mission internally from `templates/mission.md` when the added structure is justified.
+Use when a task is well defined and can be delegated or directly executed. Create a mission internally from `templates/mission.md` when the added structure is justified.
 
-The Task Executor is the entity that performs the bounded work. It may be an AI/coding agent, researcher, technician, collaborator, instrument, robotic platform, laboratory automation system, workflow, script, or human-AI combination.
+The Task Executor is the entity that performs the bounded work. It may be the current AI with tools, another AI/coding agent, researcher, technician, collaborator, instrument, robotic platform, laboratory automation system, workflow, script, or human-AI combination.
 
 The execution brief should contain only what is needed to perform the task reliably: objective, relevant inputs or materials, frozen definitions/methods, required outputs, acceptance criteria, stop conditions, and domain-relevant reproducibility information.
 
 Do not burden the executor with unnecessary strategic narrative or a preferred scientific outcome.
 
+### Tool-connected AI execution
+
+When the current AI environment has suitable tools and the action is authorized, do not stop at producing a mission if the mission can be carried out reliably in the current environment.
+
+Use the available capabilities to execute the bounded work, subject to the mission scope and approval constraints. Depending on the environment, those capabilities may include:
+
+- files and project repositories;
+- code execution, shell, notebooks, or analysis packages;
+- search, literature, database, or retrieval systems;
+- local or remote compute and workflow systems;
+- project APIs or external services;
+- laboratory automation, instruments, or robotic platforms when explicitly connected and authorized;
+- other domain-specific tools available to the host AI.
+
+Tool-connected execution should follow this controlled loop:
+
+```text
+scientific question
+-> most informative next step
+-> bounded mission + acceptance criteria
+-> available authorized tool/executor performs the work
+-> technical acceptance / failure check
+-> scientific review and claim boundary
+-> state / provenance update
+```
+
+Do not equate tool availability with permission. Obtain appropriate human approval before expensive, irreversible, privacy-sensitive, safety-sensitive, ethically regulated, or strategically consequential actions when approval cannot be safely inferred.
+
+Do not claim that an experiment, calculation, search, analysis, upload, instrument run, or other action occurred unless the environment actually executed it and returned evidence of completion.
+
+If the required capability is unavailable, inaccessible, unsafe, unauthorized, or outside the current budget, stop at a clear mission or handoff and state what external executor is needed.
+
 ### Independent review
 
 Use when a result will materially affect a scientific conclusion, expensive next step, manuscript claim, or long-term project direction. Review technical or experimental completion separately from scientific interpretation. Ask what is directly supported, what is inferred, what alternatives remain, and what the result does not prove.
+
+When tool-connected work has just completed, first check whether the execution met its acceptance criteria and whether important deviations occurred. Only then update the scientific interpretation.
 
 ### Long-term memory and provenance
 
@@ -87,7 +123,7 @@ Keep these concepts distinct:
 
 ```text
 State       -> current scientific picture
-Provenance  -> what happened, with which inputs/materials/methods/conditions/outputs
+Provenance  -> what happened, with which inputs/materials/methods/conditions/tools/outputs
 Memory      -> why the history mattered scientifically
 Decisions   -> why important choices were made
 ```
@@ -107,6 +143,8 @@ Examples, only when relevant:
 - **ML / data science:** dataset and split version, preprocessing, code/model configuration, seeds, environment, checkpoints, and evaluation definitions.
 - **Theory / analytical work:** assumptions, definitions, boundary conditions, derivation/notebook version, approximations, numerical solver settings, and external constants or reference values that affect the result.
 
+When AI tools or external automation materially perform the work, preserve tool/executor identity, relevant version or configuration, and important execution conditions when they matter for audit or reasonable reproduction.
+
 Use `references/reproducibility.md` for the full cross-domain principle and `templates/mission.md` / `templates/provenance_manifest.md` for persistent records when justified.
 
 ## Scientific Guardrails
@@ -120,8 +158,9 @@ These are guardrails against common failure modes, not a requirement to turn eve
 5. **Use information gain, not volume, to prioritize work.** Prefer the smallest reliable test that can change a scientific decision.
 6. **Separate strategy from routine execution when doing so reduces bias or cost.** This separation is a tool, not a ceremony.
 7. **Treat negative or null results as information when they rule out a hypothesis, method, or path.** Do not keep changing conditions or analyses until a preferred answer appears.
-8. **Preserve history for important work.** A new interpretation may supersede an old one; it should not erase the scientific path that produced it.
-9. **Preserve privacy.** Keep unpublished data, confidential strategy, and identifiable project details out of the reusable core unless explicitly authorized.
+8. **Never confuse a proposed action with an executed action.** Tool use, experiments, calculations, searches, or analyses must be grounded in actual execution evidence before their outputs enter the scientific record.
+9. **Preserve history for important work.** A new interpretation may supersede an old one; it should not erase the scientific path that produced it.
+10. **Preserve privacy.** Keep unpublished data, confidential strategy, and identifiable project details out of the reusable core unless explicitly authorized.
 
 ## Evidence Levels
 
@@ -144,6 +183,7 @@ When the researcher asks what to do next, prefer a decision-oriented answer:
 2. Which explanations are still plausible?
 3. What is the lowest-cost reliable observation, experiment, analysis, derivation, or calculation that would distinguish them?
 4. How would each possible result change what we believe or do next?
+5. If that next step is clear, can the current environment execute it safely and reliably with available tools, or should it be handed off?
 
 If the answer is already clear from existing evidence, recommend stopping rather than generating more activity.
 
@@ -152,6 +192,8 @@ If the answer is already clear from existing evidence, recommend stopping rather
 Roles are abstractions, not required software components.
 
 Use stronger reasoning capacity where ambiguity and scientific judgment are high. For frozen operational work, choose an executor that is capable, reliable, and proportionate to the task. That executor does not have to be an AI system.
+
+When the current AI has appropriate authorized tools, it may serve as the Task Executor directly. Prefer direct execution when it reduces unnecessary handoff friction and the task is well bounded; prefer a separate human, instrument, workflow, or specialized agent when capability, reliability, bias control, safety, or reproducibility makes that more appropriate.
 
 When AI model routing is relevant, see `references/model_selection.md`. If model routing is unavailable, continue with the current agent rather than asking the user to recreate a multi-agent architecture manually.
 
@@ -204,6 +246,8 @@ Prefer useful scientific conclusions and decisions over visible process overhead
 
 A good response often includes the key uncertainty, best-supported interpretation, strongest alternative explanation, most informative next action, what different outcomes would mean, and current claim boundary.
 
+When a bounded mission is executed with tools, briefly report what materially ran, whether acceptance criteria were met, any scientifically relevant failure or deviation, and what persistent state/provenance was updated. Do not drown the user in routine tool logs.
+
 When persistent project artifacts are created or materially updated, add a brief transparency note stating what changed and where it is stored.
 
 Do not dump internal templates, stage names, role orchestration, checklists, or hidden reasoning into the conversation unless the researcher asks for them or they materially improve clarity.
@@ -212,6 +256,8 @@ Do not dump internal templates, stage names, role orchestration, checklists, or 
 
 > **Automate the complexity, preserve the scientific transparency and history.**
 
-Use the minimum structure necessary to improve scientific judgment and reproducibility. Do not optimize for more artifacts, more workflow steps, more agent roles, or stronger-sounding claims.
+Use the minimum structure necessary to improve scientific judgment and reproducibility. When the host environment provides execution capabilities, use them to reduce unnecessary handoff friction without hiding what happened or weakening human control.
+
+Do not optimize for more artifacts, more workflow steps, more agent roles, more tool calls, or stronger-sounding claims.
 
 Optimize for high-value scientific reasoning with low interaction friction, while keeping important results understandable, traceable, and reproducible over time.
