@@ -4,17 +4,18 @@ title: "Scientific Research OS"
 type: software
 authors:
   - name: "baixingle"
-version: "1.0.0"
+version: "1.0.1"
 date-released: "2026-09-02"
 license: "MIT"
 repository-code: "https://github.com/baixingle/scientific-research-os"
 url: "https://github.com/baixingle/scientific-research-os"
 abstract: >-
   A zero-config, human-guided Agent Skill and scientific operating framework
-  for rigorous reasoning, decision-oriented research, bounded execution,
-  evidence-controlled interpretation, transparent project state, and
-  reproducible research history across experimental, computational,
-  theoretical, machine-learning, and hybrid research.
+  for rigorous reasoning, decision-oriented research, bounded tool-connected
+  execution when supported by the host environment, evidence-controlled
+  interpretation, transparent project state, and reproducible research history
+  across experimental, computational, theoretical, machine-learning, and
+  hybrid research.
 keywords:
   - "agent skills"
   - "scientific research"
