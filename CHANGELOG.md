@@ -12,7 +12,8 @@ First stable core specification of Scientific Research OS.
 - Standardized the tool-independent orchestration protocol.
 - Removed duplicate and product-specific agent definitions from the core architecture.
 - Added explicit separation between strategy, planning, execution, review, and scientific memory when that separation improves reliability, cost, or bias control.
-- Added a researcher-facing **Research State View** that projects the current scientific state back to the human researcher without exposing internal workflow complexity.
+- Added a researcher-facing **Research State View** for the current scientific state.
+- Added a separate **Provenance / History Layer** so the mutable current-state view never replaces the historical chain required for audit and reproduction.
 
 ### Scientific rigor
 
@@ -20,12 +21,14 @@ First stable core specification of Scientific Research OS.
 - Added claim-boundary, mechanism-validation, scientific-review, and analysis-quality controls.
 - Formalized discovery-versus-validation separation and pre-frozen acceptance criteria for analyses where flexibility could create confirmation bias.
 - Added protection against post-hoc criterion changes, circular reasoning, cherry-picking, and unnecessary claim escalation.
+- Added historical-integrity rules: old results, reviews, decisions, and provenance records are preserved when later work corrects or supersedes them.
 
 ### Research operations
 
-- Added Research Brief, Scientific Framework, Project Roadmap, Mission, Acceptance, Interpretation, Decision Log, Paper Story, and Research State artifacts as optional internal/system resources.
+- Added Research Brief, Scientific Framework, Project Roadmap, Mission, Acceptance, Interpretation, Decision Log, Paper Story, Research State, and Provenance Manifest artifacts as optional internal/system resources.
 - Added an AI-maintained `RESEARCH_STATE.md` pattern for keeping the current question, evidence, interpretation, alternatives, uncertainties, active work, and next decision readable and inspectable.
-- Clarified the distinction between current state, decision records, and long-term research memory.
+- Added an AI-maintained `PROVENANCE.md` pattern for tracing important inputs, code/method versions, environments, parameters, runs, outputs, reviews, decisions, and supersession relationships.
+- Clarified the distinction between current state, provenance, decision records, and long-term scientific memory.
 - Added decision-oriented project lifecycle and research-memory workflows for projects that benefit from persistent structure.
 - Added cost-aware model-selection and resource-allocation principles.
 - Added literature-to-strategy, unexpected-result, and mechanism-claim workflows.
@@ -36,8 +39,9 @@ First stable core specification of Scientific Research OS.
 - Changed `SKILL.md` from a mandatory staged workflow into an adaptive framework that uses the minimum structure required by the problem.
 - Reframed templates, checklists, workflows, and agent-role files as internal/optional implementation resources rather than forms every researcher must complete.
 - Added an agent UX contract: do not ask for choices that can be inferred safely; surface structure only when it materially improves scientific value or reliability.
-- Added a transparency contract: zero-config must not become black-box operation; researchers should be told when persistent state, mission, review, or decision artifacts are created or materially updated.
-- Simplified Quick Start and installation guidance around the principle: **automate the complexity, preserve the scientific transparency**.
+- Added a transparency contract: zero-config must not become black-box operation; researchers should be told when persistent state, provenance, mission, review, or decision artifacts are created or materially updated.
+- Added the principle: **current state may change; important scientific history should remain traceable**.
+- Simplified researcher-facing guidance around the principle: **automate the complexity, preserve the scientific transparency and history**.
 - Preserved privacy rules preventing unpublished project data from entering generic/public framework examples.
 
 ## v0.8
