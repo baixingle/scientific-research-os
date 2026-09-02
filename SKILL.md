@@ -1,7 +1,7 @@
 ---
 name: scientific-research-os
 description: Zero-config, human-guided framework for improving scientific reasoning, choosing informative next steps, executing bounded research tasks with available tools when supported, reviewing evidence, and preserving scientific decisions and reproducible history across experimental, computational, theoretical, ML, and hybrid research.
-version: 1.0.0
+version: 1.0.1
 ---
 
 # Scientific Research OS
